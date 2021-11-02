@@ -41,9 +41,9 @@ ERRO[0000] specify -f or -k please
 #根据指定关键字采集
 url-collector -k ".php?id=" 
 #批量采集文件中所有的关键字，并将结果保存到result.txt(result.txt中存在的url将不会再次采集)
-url-collector -f google-dork.txt -o result.txt
+url-collector -i google-dork.txt -o result.txt
 #和sqlmap联动
-url-collector -f google-dork.txt -o result.txt && python3 sqlmap.py -m result.txt --batch --random-agents
+url-collector -i google-dork.txt -o result.txt && python3 sqlmap.py -m result.txt --batch --random-agents
 #默认采用google镜像站点，如果你可以访问外网，可以手动指定搜索引擎为google
 url-collector -e google -k ".php?id="
 #百度url采集
