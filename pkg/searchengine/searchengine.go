@@ -10,11 +10,11 @@ import (
 	"regexp"
 	"strings"
 	"time"
-	"url-collector/config"
-	"url-collector/pkg/alg"
-	"url-collector/pkg/filter"
-	"url-collector/pkg/request"
 
+	"github.com/ShangRui-hash/url-collector/config"
+	"github.com/ShangRui-hash/url-collector/pkg/alg"
+	"github.com/ShangRui-hash/url-collector/pkg/filter"
+	"github.com/ShangRui-hash/url-collector/pkg/request"
 	mapset "github.com/deckarep/golang-set"
 )
 

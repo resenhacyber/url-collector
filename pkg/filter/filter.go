@@ -6,9 +6,9 @@ import (
 	"os"
 	"strings"
 	"time"
-	"url-collector/config"
-	"url-collector/models"
 
+	"github.com/ShangRui-hash/url-collector/config"
+	"github.com/ShangRui-hash/url-collector/models"
 	mapset "github.com/deckarep/golang-set"
 	"github.com/sirupsen/logrus"
 )

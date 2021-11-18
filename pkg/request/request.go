@@ -9,8 +9,8 @@ import (
 	"net/url"
 	"strings"
 	"time"
-	"url-collector/config"
 
+	"github.com/ShangRui-hash/url-collector/config"
 	"github.com/sirupsen/logrus"
 )
 

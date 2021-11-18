@@ -5,8 +5,8 @@ import (
 	"io"
 	"regexp"
 	"sync"
-	"url-collector/pkg/alg"
 
+	"github.com/ShangRui-hash/url-collector/pkg/alg"
 	mapset "github.com/deckarep/golang-set"
 )
 

@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"sync"
 	"time"
-	"url-collector/config"
+
+	"github.com/ShangRui-hash/url-collector/config"
 )
 
 type Progress struct {
