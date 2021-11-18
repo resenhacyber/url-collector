@@ -1,5 +1,12 @@
 # URL-Collector url采集器
 
+## Download 
+
+```
+go get github.com/ShangRui-hash/url-collector
+url-collector
+```
+
 ## Usage
 
 ```shell
