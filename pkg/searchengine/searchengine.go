@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/url"
+	"os"
 	"regexp"
 	"strings"
 	"time"
@@ -243,7 +244,7 @@ func (s *SearchEngine) wait() {
 	close(s.resultCh)
 	//等待saver结束工作
 	s.saverWg.Wait()
-	debug.Println("\n搜索完成")
+	fmt.Fprintln(os.Stderr, "\n搜索完成")
 }
 
 //提交答案

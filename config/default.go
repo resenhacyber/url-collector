@@ -45,5 +45,6 @@ var DefaultConf AppConfig = AppConfig{
 		"webcache.googleusercontent.com",
 		"translate.google.com",
 		"support.google.com",
+		"maps.google.com.hk",
 	},
 }
