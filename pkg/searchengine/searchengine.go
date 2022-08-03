@@ -243,7 +243,7 @@ func (s *SearchEngine) wait() {
 	close(s.resultCh)
 	//等待saver结束工作
 	s.saverWg.Wait()
-	fmt.Println("\n搜索完成")
+	debug.Println("\n搜索完成")
 }
 
 //提交答案
