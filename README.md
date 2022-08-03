@@ -3,8 +3,7 @@
 ## Download 
 
 ```
-go get github.com/ShangRui-hash/url-collector
-url-collector
+go install github.com/ShangRui-hash/url-collector@latest
 ```
 
 ## Usage
