@@ -13,6 +13,7 @@ import (
 
 	"github.com/ShangRui-hash/url-collector/config"
 	"github.com/ShangRui-hash/url-collector/pkg/alg"
+	"github.com/ShangRui-hash/url-collector/pkg/debug"
 	"github.com/ShangRui-hash/url-collector/pkg/filter"
 	"github.com/ShangRui-hash/url-collector/pkg/request"
 	mapset "github.com/deckarep/golang-set"
@@ -126,16 +127,18 @@ func (s *SearchEngine) fetch() {
 					break LOOP
 				case dork := <-s.dorkCh:
 					headers := map[string]string{
-						"User-Agent":    s.userAgent,
-						"X-Forward-For": "genIP()",
+						"User-Agent":      s.userAgent,
+						"X-Forwarded-For": "genIP()",
 					}
 					//1.发送请求
+					debug.Println("get:", dork)
 					resp, err := request.Get(dork, headers)
 					if err != nil {
 						log.Printf("requests.Get(%s) failed,err:%v", dork, err)
 						continue
 					}
 					if resp.StatusCode > 300 && resp.StatusCode < 400 {
+						fmt.Println("redirect:", resp.Request.URL.String())
 						s.dorkCh <- resp.Header.Get("Location")
 					}
 					defer resp.Body.Close()
@@ -145,6 +148,8 @@ func (s *SearchEngine) fetch() {
 						continue
 					}
 					text := string(bytes)
+					debug.Println("get response!")
+					debug.WriteFile("response.html", text)
 					//2.解析响应 寻找指定文件的URL
 					if strings.Contains(text, "需要验证您是否来自浙江大学") {
 						if err := s.postAnswer(); err != nil {
@@ -154,11 +159,13 @@ func (s *SearchEngine) fetch() {
 						s.dorkCh <- dork
 						continue
 					}
-					if strings.Contains(text, "window.location.href") {
-						s.dorkCh <- dork
-						continue
-					}
+					// if strings.Contains(text, "window.location.href") {
+					// 	fmt.Println("window.location.href")
+					// 	s.dorkCh <- dork
+					// 	continue
+					// }
 					if strings.Contains(text, "网络不给力，请稍后重试") {
+						debug.Println("网络不给力，请稍后重试")
 						s.dorkCh <- dork
 						continue
 					}
@@ -216,7 +223,7 @@ func (s *SearchEngine) Search() {
 	//从reader中读取dork
 	scanner := bufio.NewScanner(s.DorkReader)
 	for scanner.Scan() {
-		keyword := strings.TrimSpace(scanner.Text())
+		keyword := url.QueryEscape(strings.TrimSpace(scanner.Text()))
 		request := strings.ReplaceAll(s.baseURL, "$keyword", keyword)
 		s.dorkCh <- request
 		s.dorkWg.Add(1)

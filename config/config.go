@@ -25,6 +25,7 @@ type AppConfig struct {
 	Keyword        string            `mapstructure:"keyword"`
 	Format         string            `mapstructure:"format"`
 	Proxy          string            `mapstructure:"proxy"`
+	Debug          bool              `mapstructure:"debug"`
 }
 
 //Init 初始化配置

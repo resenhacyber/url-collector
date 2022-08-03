@@ -5,13 +5,12 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strings"
 
 	"github.com/ShangRui-hash/url-collector/config"
+	"github.com/ShangRui-hash/url-collector/pkg/debug"
 	"github.com/ShangRui-hash/url-collector/pkg/filter"
 	"github.com/ShangRui-hash/url-collector/pkg/request"
 	"github.com/ShangRui-hash/url-collector/pkg/searchengine"
-	"github.com/olekukonko/tablewriter"
 	"github.com/sirupsen/logrus"
 	cli "github.com/urfave/cli/v2"
 )
@@ -81,6 +80,13 @@ func main() {
 				Usage:       "specify http proxy",
 				Destination: &config.CurrentConf.Proxy,
 			},
+			&cli.BoolFlag{
+				Name:        "debug",
+				Aliases:     []string{"d"},
+				Usage:       "debug mode",
+				Value:       false,
+				Destination: &config.CurrentConf.Debug,
+			},
 		},
 		Action: run,
 	}
@@ -139,32 +145,8 @@ func run(c *cli.Context) (err error) {
 		return errors.New("please specify a search engine,such as google-image,google,bing,baidu")
 	}
 	//6.开始采集
-	showConfig()
+	debug.ShowConfig()
+	fmt.Fprintln(os.Stderr, "[*] collecting...")
 	engine.Search()
 	return nil
-}
-
-func showConfig() {
-	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"SearchEngine", "BaseURL", "RoutineCount", "Keyword", "InputFile", "OutputFile", "Format"})
-	table.SetAlignment(tablewriter.ALIGN_CENTER)
-	table.SetBorder(true)
-	table.SetRowLine(true)
-	table.SetAutoMergeCells(true)
-	data := [][]string{
-		{
-			config.CurrentConf.SearchEngine,
-			config.CurrentConf.GetBaseURL(),
-			fmt.Sprintf("%d", config.CurrentConf.RoutineCount),
-			config.CurrentConf.Keyword,
-			config.CurrentConf.InputFilePath,
-			config.CurrentConf.OutputFilePath,
-			config.CurrentConf.Format,
-		},
-	}
-	table.AppendBulk(data)
-	table.SetCaption(true, "Current Config")
-	table.Render()
-	fmt.Println("[*] black list:", strings.Join(config.CurrentConf.BlackList, ","))
-	fmt.Println("[*] collecting...")
 }

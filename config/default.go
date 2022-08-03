@@ -6,7 +6,7 @@ var DefaultConf AppConfig = AppConfig{
 	SearchEngine: "google-image",
 	Format:       "url",
 	BaseURL: map[string]string{
-		"google":       "https://www.google.com/search?q=$keyword",
+		"google":       "https://www.google.com.hk/search?q=$keyword",
 		"google-image": "https://g.luciaz.me/search?q=$keyword",
 		"bing":         "https://cn.bing.com/search?q=$keyword",
 		"baidu":        "https://www.baidu.com/s?wd=$keyword",
