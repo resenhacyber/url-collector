@@ -1660,3 +1660,4 @@ inurl:www/index.php?page=
 inurl:yacht_search/yacht_view.php?pid=
 inurl:your_orders.php?ID=
 inurl:zb/view.php?uid=
+inurl:login | inurl:signin | intitle:Login | intitle:"sign in" | inurl:auth
